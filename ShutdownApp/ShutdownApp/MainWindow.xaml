@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Shutdown" Height="200" Width="400">
     <Grid>
+        <Label Content="Enter the time before turning off the computer" HorizontalAlignment="Left" Margin="20,18,0,0" VerticalAlignment="Top" Width="260"/>
+        <TextBox Name="textSet" HorizontalAlignment="Left" Margin="20,51,0,0" Text="60" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="minutes" HorizontalAlignment="Left" Margin="145,46,0,0" VerticalAlignment="Top" Height="23"/>
+        <Button Name="buttonSet" Content="Set Shutdown" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="120" Click="buttonSet_Click"/>
 
     </Grid>
 </Window>
