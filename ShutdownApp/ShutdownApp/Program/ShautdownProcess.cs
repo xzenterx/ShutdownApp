@@ -15,10 +15,16 @@ namespace ShutdownApp.Program
             _seconds = seconds;
         }
 
-        public void SetSutdown(int minutes)
+        public void SetShutdown(int minutes)
         {
             SetTime(minutes);
             ProcessStartInfo processShutdown = new ProcessStartInfo("cmd", $"/c shutdown -s -f -t {_seconds}" );
+            Process.Start(processShutdown);
+        }
+
+        public void CancelShutdown()
+        {
+            ProcessStartInfo processShutdown = new ProcessStartInfo("cmd", $"/c shutdown -a");
             Process.Start(processShutdown);
         }
     }

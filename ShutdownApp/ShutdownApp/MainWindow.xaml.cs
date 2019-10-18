@@ -14,6 +14,7 @@ namespace ShutdownApp
         private void buttonSet_Click(object sender, RoutedEventArgs e)
         {
             int minutes = 0;
+
             if (!int.TryParse(textSet.Text, out minutes))
             {
                 MessageBox.Show("Please, enter minutes.");
@@ -21,9 +22,18 @@ namespace ShutdownApp
             else
             {
                 ShautdownProcess processShutdown = new ShautdownProcess();
-                processShutdown.SetSutdown(minutes);
-            }
+                processShutdown.SetShutdown(minutes);
 
+                buttonCancel.IsEnabled = true;
+            }
+        }
+
+        private void buttonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            ShautdownProcess processShutdown = new ShautdownProcess();
+            processShutdown.CancelShutdown();
+
+            buttonCancel.IsEnabled = false;
         }
     }
 }
