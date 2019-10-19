@@ -22,7 +22,8 @@ namespace ShutdownApp
             else
             {
                 ShautdownProcess processShutdown = new ShautdownProcess();
-                processShutdown.SetShutdown(minutes);
+                //processShutdown.SetShutdownCmd(minutes);
+                processShutdown.SetShutdownTaskSheduler(minutes);
 
                 buttonCancel.IsEnabled = true;
             }
@@ -31,7 +32,7 @@ namespace ShutdownApp
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
             ShautdownProcess processShutdown = new ShautdownProcess();
-            processShutdown.CancelShutdown();
+            processShutdown.CancelShutdownCmd();
 
             buttonCancel.IsEnabled = false;
         }
