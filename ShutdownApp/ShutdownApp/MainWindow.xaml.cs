@@ -32,7 +32,8 @@ namespace ShutdownApp
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
             ShautdownProcess processShutdown = new ShautdownProcess();
-            processShutdown.CancelShutdownCmd();
+            //processShutdown.CancelShutdownCmd();
+            processShutdown.CancelShutdownTaskSheduler();
 
             buttonCancel.IsEnabled = false;
         }

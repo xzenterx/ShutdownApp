@@ -19,7 +19,7 @@ namespace ShutdownApp.Program
         public void SetShutdownCmd(int minutes)
         {
             SetTime(minutes);
-            ProcessStartInfo processShutdown = new ProcessStartInfo("cmd", $"/c shutdown -s -f -t {_seconds}" );
+            ProcessStartInfo processShutdown = new ProcessStartInfo("cmd", $"/c shutdown -s -t {_seconds}" );
             Process.Start(processShutdown);
         }
 
@@ -35,15 +35,21 @@ namespace ShutdownApp.Program
             using (TaskService taskService = new TaskService())
             {
                 TaskDefinition taskDefinition = taskService.NewTask();
-
                 taskDefinition.RegistrationInfo.Description = "Shutdown";
-
-                taskDefinition.Triggers.Add(new TimeTrigger(DateTime.Now));
-
-                taskDefinition.Actions.Add(new ExecAction("cmd.exe", $"/c shutdown -s -f -t {_seconds}"));
+                taskDefinition.Triggers.Add(new TimeTrigger(DateTime.Now.AddSeconds(_seconds)));
+                taskDefinition.Actions.Add(new ExecAction("cmd.exe", @"/c shutdown -s -t 000"));
 
                 taskService.RootFolder.RegisterTaskDefinition(@"ShutdownTask", taskDefinition);
             }
         }
+
+        public void CancelShutdownTaskSheduler()
+        {
+            using (TaskService taskService = new TaskService())
+            {
+                taskService.RootFolder.DeleteTask("ShutdownTask");
+            }
+        }
+
     }
 }
