@@ -6,14 +6,17 @@ namespace ShutdownApp
     public partial class MainWindow : Window
     {
 
+        private ShutdownProcess _shutdownProcess = new ShutdownProcess();
+
         public MainWindow()
         {
             InitializeComponent();
+            timer.Content = _shutdownProcess.InitializeTaskSheduler();
         }
 
         private void buttonSet_Click(object sender, RoutedEventArgs e)
         {
-            int minutes = 0;
+            int minutes;
 
             if (!int.TryParse(textSet.Text, out minutes))
             {
@@ -21,19 +24,17 @@ namespace ShutdownApp
             }
             else
             {
-                ShautdownProcess processShutdown = new ShautdownProcess();
-                //processShutdown.SetShutdownCmd(minutes);
-                processShutdown.SetShutdownTaskSheduler(minutes);
+                _shutdownProcess.SetShutdownTaskSheduler(minutes);
 
                 buttonCancel.IsEnabled = true;
             }
+
+            
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
-            ShautdownProcess processShutdown = new ShautdownProcess();
-            //processShutdown.CancelShutdownCmd();
-            processShutdown.CancelShutdownTaskSheduler();
+            _shutdownProcess.CancelShutdownTaskSheduler();
 
             buttonCancel.IsEnabled = false;
         }

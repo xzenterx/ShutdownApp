@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ShutdownApp.Program
 {
-    public class ShautdownProcess
+    public class ShutdownProcess
     {
         private int _seconds;
 
@@ -37,7 +37,7 @@ namespace ShutdownApp.Program
                 TaskDefinition taskDefinition = taskService.NewTask();
                 taskDefinition.RegistrationInfo.Description = "Shutdown";
                 taskDefinition.Triggers.Add(new TimeTrigger(DateTime.Now.AddSeconds(_seconds)));
-                taskDefinition.Actions.Add(new ExecAction("cmd.exe", @"/c shutdown -s -t 000"));
+                taskDefinition.Actions.Add(new ExecAction("cmd.exe", @"/c shutdown -s -t 60"));
 
                 taskService.RootFolder.RegisterTaskDefinition(@"ShutdownTask", taskDefinition);
             }
@@ -48,6 +48,24 @@ namespace ShutdownApp.Program
             using (TaskService taskService = new TaskService())
             {
                 taskService.RootFolder.DeleteTask("ShutdownTask");
+            }
+        }
+
+        public string InitializeTaskSheduler()
+        {
+            using (TaskService taskService = new TaskService())
+            {
+                var tasks = taskService.RootFolder.GetTasks();
+
+                foreach (var task in tasks)
+                {
+                    if (task.Name == "ShutdownTask")
+                    {   
+                        return task.NextRunTime.ToString();
+                    }
+                }
+
+                return null;
             }
         }
 
