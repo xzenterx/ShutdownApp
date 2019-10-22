@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:ShutdownApp"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
-        Title="Shutdown" Height="300" Width="500">
+        Title="Shutdown" Height="300" Width="500" Loaded="Window_Loaded">
     <Grid>
         <Label Content="Enter the time before turning off the computer" Margin="20,18,120,0" VerticalAlignment="Top"/>
         <TextBox Name="textSet" Margin="25,51,355,0" Text="60" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Label Content="minutes" HorizontalAlignment="Left" Margin="150,46,0,0" VerticalAlignment="Top" Height="23"/>
-        <Button Name="buttonSet" Content="Set Shutdown" HorizontalAlignment="Left" Margin="25,84,0,0" VerticalAlignment="Top" Width="120" Click="buttonSet_Click"/>
-        <Button Name="buttonCancel" Content="Cancel Shutdown" HorizontalAlignment="Left" Margin="25,141,0,0" VerticalAlignment="Top" Width="120" Click="buttonCancel_Click" IsEnabled="False"/>
+        <Button Name="buttonSet" Content="Set Shutdown" HorizontalAlignment="Left" Margin="25,84,0,0" VerticalAlignment="Top" Width="120" Click="ButtonSet_Click"/>
+        <Button Name="buttonCancel" Content="Cancel Shutdown" HorizontalAlignment="Left" Margin="25,141,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCancel_Click" IsEnabled="False"/>
         <Label Name="timer" Content="0" HorizontalAlignment="Left" Margin="310,223,0,0" VerticalAlignment="Top" Width="180"/>
 
     </Grid>

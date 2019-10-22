@@ -7,6 +7,8 @@ namespace ShutdownApp.Program
         public int Hour { get; private set; }
         public int Minutes { get; private set; }
 
+        public int Seconds { get; private set; }
+
 
         public bool CheckRunShutdown()
         {
@@ -47,6 +49,7 @@ namespace ShutdownApp.Program
             {
                 Hour = task.NextRunTime.Hour;
                 Minutes = task.NextRunTime.Minute;
+                Seconds = task.NextRunTime.Second;
             }
         }
     }
