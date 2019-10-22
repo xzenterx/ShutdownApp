@@ -23,7 +23,12 @@ namespace ShutdownApp
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SetTimer();
+            if (_initialCheck.CheckRunShutdown())
+            {
+                SetTimer();
+                buttonCancel.IsEnabled = true;
+            }
+            
             _dispatcherTimer.Tick += new EventHandler(Timer_Tick);        
         }
 
@@ -47,26 +52,25 @@ namespace ShutdownApp
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             _shutdownProcess.CancelShutdownTaskSheduler();
-            SetTimer();
+            CancelTimer();
 
             buttonCancel.IsEnabled = false;
         }
 
         private void SetTimer()
         {
-            if (_initialCheck.CheckRunShutdown())
-            {
-                _shutdownTime = new TimeSpan(_initialCheck.Hour, _initialCheck.Minutes, _initialCheck.Seconds);
+            _initialCheck.GetNextRunTime();
+            _shutdownTime = new TimeSpan(_initialCheck.Hour, _initialCheck.Minutes, _initialCheck.Seconds);
 
-                _dispatcherTimer.Interval = new TimeSpan(0,0,0);
-                _dispatcherTimer.Start();
-            }
-            else
-            {
-                _dispatcherTimer.Stop();
+            _dispatcherTimer.Interval = new TimeSpan(0,0,0);
+            _dispatcherTimer.Start();
+        }
 
-                timer.Content = "";
-            }
+        private void CancelTimer()
+        {
+            _dispatcherTimer.Stop();
+
+            timer.Content = "";
         }
 
         private void Timer_Tick(object sender, EventArgs e)

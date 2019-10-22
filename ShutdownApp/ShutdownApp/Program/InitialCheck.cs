@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32.TaskScheduler;
+using System.Windows.Controls;
 
 namespace ShutdownApp.Program
 {
@@ -6,20 +7,23 @@ namespace ShutdownApp.Program
     {
         public int Hour { get; private set; }
         public int Minutes { get; private set; }
-
         public int Seconds { get; private set; }
 
 
         public bool CheckRunShutdown()
         {
-            if (GetRunShutdown() != null)
+            return (GetRunShutdown() != null);
+        }
+
+        public void GetNextRunTime()
+        {
+            var task = GetRunShutdown();
+
+            if (task != null)
             {
-                GetNextRunTime();
-                return true;
-            }
-            else
-            {
-                return false;
+                Hour = task.NextRunTime.Hour;
+                Minutes = task.NextRunTime.Minute;
+                Seconds = task.NextRunTime.Second;
             }
         }
 
@@ -40,17 +44,6 @@ namespace ShutdownApp.Program
                 return null;
             }
         }
-
-        private void GetNextRunTime()
-        {
-            var task = GetRunShutdown();
-
-            if (task != null)
-            {
-                Hour = task.NextRunTime.Hour;
-                Minutes = task.NextRunTime.Minute;
-                Seconds = task.NextRunTime.Second;
-            }
-        }
+     
     }
 }
