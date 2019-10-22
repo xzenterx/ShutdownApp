@@ -1,8 +1,6 @@
 ﻿using Microsoft.Win32.TaskScheduler;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 
 namespace ShutdownApp.Program
 {
@@ -48,24 +46,6 @@ namespace ShutdownApp.Program
             using (TaskService taskService = new TaskService())
             {
                 taskService.RootFolder.DeleteTask("ShutdownTask");
-            }
-        }
-
-        public string InitializeTaskSheduler()
-        {
-            using (TaskService taskService = new TaskService())
-            {
-                var tasks = taskService.RootFolder.GetTasks();
-
-                foreach (var task in tasks)
-                {
-                    if (task.Name == "ShutdownTask")
-                    {   
-                        return task.NextRunTime.ToString();
-                    }
-                }
-
-                return null;
             }
         }
 
