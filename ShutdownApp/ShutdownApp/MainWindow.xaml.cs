@@ -60,9 +60,9 @@ namespace ShutdownApp
         private void SetTimer()
         {
             _initialCheck.GetNextRunTime();
-            _shutdownTime = new TimeSpan(_initialCheck.Hour, _initialCheck.Minutes, _initialCheck.Seconds);
+            _shutdownTime = _initialCheck.Time;
 
-            _dispatcherTimer.Interval = new TimeSpan(0,0,0);
+            _dispatcherTimer.Interval = new TimeSpan();
             _dispatcherTimer.Start();
         }
 
@@ -70,7 +70,7 @@ namespace ShutdownApp
         {
             _dispatcherTimer.Stop();
 
-            timer.Content = "";
+            timer.Content = string.Empty;
         }
 
         private void Timer_Tick(object sender, EventArgs e)

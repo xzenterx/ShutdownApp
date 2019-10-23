@@ -1,13 +1,12 @@
 ﻿using Microsoft.Win32.TaskScheduler;
-using System.Windows.Controls;
+using System;
+using System.Linq;
 
 namespace ShutdownApp.Program
 {
     public class InitialCheck
     {
-        public int Hour { get; private set; }
-        public int Minutes { get; private set; }
-        public int Seconds { get; private set; }
+        public TimeSpan Time { get; set; }
 
 
         public bool CheckRunShutdown()
@@ -21,9 +20,7 @@ namespace ShutdownApp.Program
 
             if (task != null)
             {
-                Hour = task.NextRunTime.Hour;
-                Minutes = task.NextRunTime.Minute;
-                Seconds = task.NextRunTime.Second;
+                Time = new TimeSpan(task.NextRunTime.Ticks);
             }
         }
 
@@ -32,16 +29,7 @@ namespace ShutdownApp.Program
             using (TaskService taskService = new TaskService())
             {
                 var tasks = taskService.RootFolder.GetTasks();
-
-                foreach (var task in tasks)
-                {
-                    if (task.Name == "ShutdownTask")
-                    {
-                        return task;
-                    }
-                }
-
-                return null;
+                return tasks.FirstOrDefault(t => t.Name.Equals("ShutdownTask"));
             }
         }
      
