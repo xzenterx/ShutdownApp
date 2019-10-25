@@ -21,9 +21,9 @@ namespace ShutdownApp.Program
             Process.Start(processShutdown);
         }
 
-        public void SetShutdownTaskSheduler(int minutes)
+        public void SetShutdownTaskSheduler(TimeSpan time)
         {
-            _timeout = TimeSpan.FromMinutes(minutes);
+            _timeout = time;
             using (TaskService taskService = new TaskService())
             {
                 TaskDefinition taskDefinition = taskService.NewTask();

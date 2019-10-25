@@ -33,16 +33,22 @@ namespace ShutdownApp
         }
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
-        {
-            int minutes;
+        {   
+            
+            //int minutes;
 
-            if (!int.TryParse(textSet.Text, out minutes))
+            if (!int.TryParse(textSetHours.Text, out int hours))
+            {
+                MessageBox.Show("Please, enter minutes.");
+            }
+            else if ((!int.TryParse(textSetMinutes.Text, out int minutes)))
             {
                 MessageBox.Show("Please, enter minutes.");
             }
             else
             {
-                _shutdownProcess.SetShutdownTaskSheduler(minutes);
+                TimeSpan time = new TimeSpan(hours, minutes, 0);
+                _shutdownProcess.SetShutdownTaskSheduler(time);
                 SetTimer();
 
                 buttonCancel.IsEnabled = true;
@@ -81,6 +87,5 @@ namespace ShutdownApp
             timer.Content = _remainingTime.ToString();
         }
 
-        
     }
 }

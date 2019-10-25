@@ -5,15 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownApp"
         mc:Ignorable="d"
-        ResizeMode="CanMinimize"
-        Title="Shutdown" Height="300" Width="500" Loaded="Window_Loaded">
+        
+        Title="Shutdown" Height="209" Width="339" Loaded="Window_Loaded">
     <Grid>
-        <Label Content="Enter the time before turning off the computer" Margin="20,18,120,0" VerticalAlignment="Top"/>
-        <TextBox Name="textSet" Margin="25,51,355,0" Text="60" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Label Content="minutes" HorizontalAlignment="Left" Margin="150,46,0,0" VerticalAlignment="Top" Height="23"/>
-        <Button Name="buttonSet" Content="Set Shutdown" HorizontalAlignment="Left" Margin="25,84,0,0" VerticalAlignment="Top" Width="120" Click="ButtonSet_Click"/>
-        <Button Name="buttonCancel" Content="Cancel Shutdown" HorizontalAlignment="Left" Margin="25,141,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCancel_Click" IsEnabled="False"/>
-        <Label Name="timer" Content="0" HorizontalAlignment="Left" Margin="310,223,0,0" VerticalAlignment="Top" Width="180"/>
+
+        <Rectangle HorizontalAlignment="Center" Height="114" Margin="0,14,0,0" Stroke="Black" VerticalAlignment="Top" Width="300"/>
+
+        <Rectangle HorizontalAlignment="Center" Height="50" Margin="0,129,0,0" Stroke="Black" VerticalAlignment="Center" Width="300"/>
+
+        <Label Content="Enter the time before turning off the computer" Margin="25,14,24,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textSetMinutes" Margin="146,43,131,0" Text="60" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <Label Content="minutes" HorizontalAlignment="Left" Margin="213,38,0,0" VerticalAlignment="Top" Height="23"/>
+        <Button x:Name="buttonSet" Content="Set Shutdown" HorizontalAlignment="Left" Margin="30,68,0,0" VerticalAlignment="Top" Width="120" Click="ButtonSet_Click"/>
+        <Button x:Name="buttonCancel" Content="Cancel Shutdown" HorizontalAlignment="Left" Margin="30,93,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCancel_Click" IsEnabled="False"/>
+        <Label x:Name="timer" Content="0" HorizontalAlignment="Center" Margin="0,148,0,0" VerticalAlignment="Top" Width="181" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="hours" HorizontalAlignment="Left" Margin="97,38,0,0" VerticalAlignment="Top" Height="23"/>
+        <TextBox Name="textSetHours" HorizontalAlignment="Left" Margin="30,43,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
 
     </Grid>
 </Window>
