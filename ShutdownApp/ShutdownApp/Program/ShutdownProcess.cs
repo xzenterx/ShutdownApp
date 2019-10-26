@@ -41,6 +41,7 @@ namespace ShutdownApp.Program
             using (TaskService taskService = new TaskService())
             {
                 taskService.RootFolder.DeleteTask("ShutdownTask");
+                CancelShutdownCmd();
             }
         }
 
