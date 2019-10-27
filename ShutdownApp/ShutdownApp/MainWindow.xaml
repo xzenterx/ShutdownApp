@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ShutdownApp"
         mc:Ignorable="d"
         
-        Title="Shutdown" Height="209" Width="339" Loaded="Window_Loaded">
+        Title="Shutdown" Height="204" Width="329" Loaded="Window_Loaded">
     <Grid>
 
         <Rectangle HorizontalAlignment="Center" Height="114" Margin="0,14,0,0" Stroke="Black" VerticalAlignment="Top" Width="300"/>
