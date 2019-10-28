@@ -20,7 +20,9 @@ namespace ShutdownApp.Program
 
             if (task != null)
             {
-                Time = new TimeSpan(task.NextRunTime.Ticks);
+                var dateTime = task.NextRunTime;
+                // For some reason, 737359 days are created here.
+                Time = new TimeSpan(dateTime.Ticks);
             }
         }
 

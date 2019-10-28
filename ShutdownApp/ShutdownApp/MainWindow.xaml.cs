@@ -34,14 +34,11 @@ namespace ShutdownApp
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
         {   
-            
-            //int minutes;
-
             if (!int.TryParse(textSetHours.Text, out int hours))
             {
                 MessageBox.Show("Please, enter minutes.");
             }
-            else if ((!int.TryParse(textSetMinutes.Text, out int minutes)))
+            else if (!int.TryParse(textSetMinutes.Text, out int minutes))
             {
                 MessageBox.Show("Please, enter minutes.");
             }
@@ -84,7 +81,7 @@ namespace ShutdownApp
             TimeSpan timeNow = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
             _remainingTime = _shutdownTime - timeNow;
-            timer.Content = _remainingTime.ToString();
+            timer.Content = $"{_remainingTime.Hours}:{_remainingTime.Minutes}:{_remainingTime.Seconds}";
         }
 
     }

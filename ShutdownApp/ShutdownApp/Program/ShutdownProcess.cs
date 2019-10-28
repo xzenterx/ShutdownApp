@@ -28,7 +28,7 @@ namespace ShutdownApp.Program
             {
                 TaskDefinition taskDefinition = taskService.NewTask();
                 taskDefinition.RegistrationInfo.Description = "Shutdown";
-                var triggerDateTime = DateTime.Now + _timeout;
+                DateTime triggerDateTime = new DateTime(DateTime.Now.Ticks + _timeout.Ticks);
                 taskDefinition.Triggers.Add(new TimeTrigger(triggerDateTime));
                 taskDefinition.Actions.Add(new ExecAction("cmd.exe", @"/c shutdown -s -t 60"));
 

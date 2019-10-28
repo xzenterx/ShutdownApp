@@ -5,20 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShutdownApp"
         mc:Ignorable="d"
-        
-        Title="Shutdown" Height="204" Width="329" Loaded="Window_Loaded">
-    <Grid>
+        ResizeMode="CanMinimize"
+        Title="Shutdown" Height="240" Width="329" Loaded="Window_Loaded">
+    <Grid Height="230">
 
         <Rectangle HorizontalAlignment="Center" Height="114" Margin="0,14,0,0" Stroke="Black" VerticalAlignment="Top" Width="300"/>
 
-        <Rectangle HorizontalAlignment="Center" Height="50" Margin="0,129,0,0" Stroke="Black" VerticalAlignment="Center" Width="300"/>
+        <Rectangle HorizontalAlignment="Center" Height="50" Margin="0,134,0,0" Stroke="Black" VerticalAlignment="Top" Width="300"/>
 
         <Label Content="Enter the time before turning off the computer" Margin="25,14,24,0" VerticalAlignment="Top"/>
         <TextBox x:Name="textSetMinutes" Margin="146,43,131,0" Text="60" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <Label Content="minutes" HorizontalAlignment="Left" Margin="213,38,0,0" VerticalAlignment="Top" Height="23"/>
         <Button x:Name="buttonSet" Content="Set Shutdown" HorizontalAlignment="Left" Margin="30,68,0,0" VerticalAlignment="Top" Width="120" Click="ButtonSet_Click"/>
         <Button x:Name="buttonCancel" Content="Cancel Shutdown" HorizontalAlignment="Left" Margin="30,93,0,0" VerticalAlignment="Top" Width="120" Click="ButtonCancel_Click" IsEnabled="False"/>
-        <Label x:Name="timer" Content="0" HorizontalAlignment="Center" Margin="0,148,0,0" VerticalAlignment="Top" Width="181" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label x:Name="timer" Content="0" HorizontalAlignment="Center" Margin="0,146,0,0" VerticalAlignment="Top" Width="181" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Label Content="hours" HorizontalAlignment="Left" Margin="97,38,0,0" VerticalAlignment="Top" Height="23"/>
         <TextBox Name="textSetHours" HorizontalAlignment="Left" Margin="30,43,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
 
