@@ -2,6 +2,7 @@
 using System.Windows.Threading;
 using ShutdownApp.Program;
 using System;
+using System.Collections.Generic;
 
 namespace ShutdownApp
 {
@@ -12,8 +13,11 @@ namespace ShutdownApp
         private InitialCheck _initialCheck = new InitialCheck();
         private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
 
+        private TimeSpan _time;
         private TimeSpan _shutdownTime;
         private TimeSpan _remainingTime;
+
+        private List<Profile> profiles = new List<Profile>();
 
 
         public MainWindow()
@@ -44,8 +48,8 @@ namespace ShutdownApp
             }
             else
             {
-                TimeSpan time = new TimeSpan(hours, minutes, 0);
-                _shutdownProcess.SetShutdownTaskSheduler(time);
+                _time = new TimeSpan(hours, minutes, 0);
+                _shutdownProcess.SetShutdownTaskSheduler(_time);
                 SetTimer();
 
                 buttonCancel.IsEnabled = true;
@@ -82,6 +86,11 @@ namespace ShutdownApp
 
             _remainingTime = _shutdownTime - timeNow;
             timer.Content = $"{_remainingTime.Hours}:{_remainingTime.Minutes}:{_remainingTime.Seconds}";
+        }
+
+        private void CreateNewProfile(string name)
+        {
+            profiles.Add(new Profile(name, _time));
         }
 
         private void ProfilesBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
