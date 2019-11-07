@@ -33,7 +33,9 @@ namespace ShutdownApp
                 buttonCancel.IsEnabled = true;
             }
             
-            _dispatcherTimer.Tick += new EventHandler(Timer_Tick);        
+            _dispatcherTimer.Tick += new EventHandler(Timer_Tick);
+
+            
         }
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
@@ -91,11 +93,31 @@ namespace ShutdownApp
         private void CreateNewProfile(string name)
         {
             profiles.Add(new Profile(name, _time));
+            profilesBox.ItemsSource = profiles;
+        }
+
+        private void DeleteProfile(string name)
+        {
+            
+        }
+
+        private void SetProfile(Profile profile)
+        {
+            _time = profile.Time;
+            textSetHours.Text = profile.Time.Hours.ToString();
+            textSetMinutes.Text = profile.Time.Minutes.ToString();
         }
 
         private void ProfilesBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            
+            var profile = profilesBox.SelectedItem;
+            SetProfile((Profile)profile);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CreateNewProfile(textSetName.Text);
+           
         }
     }
 }

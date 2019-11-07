@@ -15,5 +15,9 @@ namespace ShutdownApp.Program
             Time = time;
         }
 
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
