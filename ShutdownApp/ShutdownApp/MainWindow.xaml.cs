@@ -3,6 +3,8 @@ using System.Windows.Threading;
 using ShutdownApp.Program;
 using System;
 using System.Collections.Generic;
+using System.Windows.Controls;
+using System.Linq;
 
 namespace ShutdownApp
 {
@@ -17,7 +19,7 @@ namespace ShutdownApp
         private TimeSpan _shutdownTime;
         private TimeSpan _remainingTime;
 
-        private List<Profile> profiles = new List<Profile>();
+        private List<Profile> _profiles = new List<Profile>();
 
 
         public MainWindow()
@@ -35,7 +37,7 @@ namespace ShutdownApp
             
             _dispatcherTimer.Tick += new EventHandler(Timer_Tick);
 
-            
+            //profilesBox.ItemsSource = _profiles;
         }
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
@@ -92,8 +94,13 @@ namespace ShutdownApp
 
         private void CreateNewProfile(string name)
         {
-            profiles.Add(new Profile(name, _time));
-            profilesBox.ItemsSource = profiles;
+            _profiles.Add(new Profile(name, _time));
+            
+            ComboBoxItem comboBoxItem = new ComboBoxItem();
+            comboBoxItem.Content = _profiles.Last().Name;
+
+            profilesBox.Items.Add(comboBoxItem);
+            
         }
 
         private void DeleteProfile(string name)
@@ -111,13 +118,12 @@ namespace ShutdownApp
         private void ProfilesBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             var profile = profilesBox.SelectedItem;
-            SetProfile((Profile)profile);
+            //SetProfile((Profile)profile);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             CreateNewProfile(textSetName.Text);
-           
         }
     }
 }
