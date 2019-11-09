@@ -19,12 +19,20 @@ namespace ShutdownApp
         private TimeSpan _shutdownTime;
         private TimeSpan _remainingTime;
 
-        private List<Profile> _profiles = new List<Profile>();
+        public List<Profile> _profiles;
 
 
         public MainWindow()
         {
             InitializeComponent();
+
+            _profiles = new List<Profile>
+            {
+                new Profile("Film", new TimeSpan(1,25,0)),
+                new Profile("Long Film", new TimeSpan(2,25,0))
+            };
+
+            profilesBox.ItemsSource = _profiles;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -37,7 +45,8 @@ namespace ShutdownApp
             
             _dispatcherTimer.Tick += new EventHandler(Timer_Tick);
 
-            //profilesBox.ItemsSource = _profiles;
+            
+            
         }
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
@@ -96,10 +105,10 @@ namespace ShutdownApp
         {
             _profiles.Add(new Profile(name, _time));
             
-            ComboBoxItem comboBoxItem = new ComboBoxItem();
+            /*ComboBoxItem comboBoxItem = new ComboBoxItem();
             comboBoxItem.Content = _profiles.Last().Name;
 
-            profilesBox.Items.Add(comboBoxItem);
+            profilesBox.Items.Add(comboBoxItem);*/
             
         }
 

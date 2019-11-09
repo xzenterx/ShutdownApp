@@ -23,7 +23,7 @@
         <Label x:Name="timer" Content="0" HorizontalAlignment="Center" Margin="0,145,0,0" VerticalAlignment="Top" Width="124" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <Label Content="hours" HorizontalAlignment="Left" Margin="93,37,0,0" VerticalAlignment="Top" Height="23"/>
         <TextBox x:Name="textSetHours" HorizontalAlignment="Left" Margin="26,42,0,0" Text="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="60"/>
-        <ComboBox x:Name="profilesBox" HorizontalAlignment="Left" Margin="182,199,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ProfilesBox_SelectionChanged"/>
+        <ComboBox x:Name="profilesBox" HorizontalAlignment="Left" Margin="182,199,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ProfilesBox_SelectionChanged" ItemsSource="{Binding Name}"/>
         <TextBox Name="textSetName" HorizontalAlignment="Left" Margin="26,201,0,0" Text="Name profile" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button Content="Save profile" HorizontalAlignment="Left" Margin="26,234,0,0" VerticalAlignment="Top" Width="120" Click="Button_Click"/>
         <Button Content="Delete profile" HorizontalAlignment="Left" Margin="182,234,0,0" VerticalAlignment="Top" Width="120"/>
