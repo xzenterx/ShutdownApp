@@ -44,9 +44,6 @@ namespace ShutdownApp
             }
             
             _dispatcherTimer.Tick += new EventHandler(Timer_Tick);
-
-            
-            
         }
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
@@ -103,18 +100,7 @@ namespace ShutdownApp
 
         private void CreateNewProfile(string name)
         {
-            _profiles.Add(new Profile(name, _time));
-            
-            /*ComboBoxItem comboBoxItem = new ComboBoxItem();
-            comboBoxItem.Content = _profiles.Last().Name;
-
-            profilesBox.Items.Add(comboBoxItem);*/
-            
-        }
-
-        private void DeleteProfile(string name)
-        {
-            
+            _profiles.Add(new Profile(name, _time));                 
         }
 
         private void SetProfile(Profile profile)
@@ -127,7 +113,6 @@ namespace ShutdownApp
         private void ProfilesBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             var profile = profilesBox.SelectedItem;
-            //SetProfile((Profile)profile);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
