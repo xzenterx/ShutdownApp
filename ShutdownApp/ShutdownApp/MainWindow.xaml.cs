@@ -25,14 +25,6 @@ namespace ShutdownApp
         public MainWindow()
         {
             InitializeComponent();
-
-            _profiles = new List<Profile>
-            {
-                new Profile("Film", new TimeSpan(1,25,0)),
-                new Profile("Long Film", new TimeSpan(2,25,0))
-            };
-
-            profilesBox.ItemsSource = _profiles;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +36,13 @@ namespace ShutdownApp
             }
             
             _dispatcherTimer.Tick += new EventHandler(Timer_Tick);
+
+            _profiles = new List<Profile>
+            {
+                new Profile("Base", new TimeSpan(1,0,0)),
+                new Profile("Serial", new TimeSpan(1,10,0)),
+                new Profile("Film", new TimeSpan(2,30,0))
+            };
         }
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
@@ -100,24 +99,54 @@ namespace ShutdownApp
 
         private void CreateNewProfile(string name)
         {
-            _profiles.Add(new Profile(name, _time));                 
+            if (!int.TryParse(textSetHours.Text, out int hours))
+            {
+                MessageBox.Show("Please, enter minutes.");
+            }
+            else if (!int.TryParse(textSetMinutes.Text, out int minutes))
+            {
+                MessageBox.Show("Please, enter minutes.");
+            }
+            else
+            {
+                _time = new TimeSpan(hours, minutes, 0);
+                var profile = new Profile(name, _time);
+                _profiles.Add(profile);
+                profilesBox.Items.Add(_profiles.Last());
+            }
         }
 
         private void SetProfile(Profile profile)
         {
-            _time = profile.Time;
-            textSetHours.Text = profile.Time.Hours.ToString();
-            textSetMinutes.Text = profile.Time.Minutes.ToString();
+            if (profile != null)
+            {
+                _time = profile.Time;
+                textSetHours.Text = profile.Time.Hours.ToString();
+                textSetMinutes.Text = profile.Time.Minutes.ToString();
+            }
         }
 
-        private void ProfilesBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void DeleteProfile(Profile profile)
+        {
+            profilesBox.Items.Remove(profile);
+            profilesBox.SelectedItem = profilesBox.Items[0];
+        }
+
+        private void ProfilesBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var profile = profilesBox.SelectedItem;
+            SetProfile((Profile)profile);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             CreateNewProfile(textSetName.Text);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            var profile = profilesBox.SelectedItem;
+            DeleteProfile((Profile)profile);
         }
     }
 }
