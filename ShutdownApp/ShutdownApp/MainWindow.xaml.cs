@@ -19,7 +19,9 @@ namespace ShutdownApp
         private TimeSpan _shutdownTime;
         private TimeSpan _remainingTime;
 
-        public List<Profile> _profiles;
+        private List<Profile> _profiles;
+
+        private SaveComponent _saveComponent = new SaveComponent();
 
 
         public MainWindow()
@@ -147,6 +149,11 @@ namespace ShutdownApp
         {
             var profile = profilesBox.SelectedItem;
             DeleteProfile((Profile)profile);
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _saveComponent.SaveProfiles(_profiles);
         }
     }
 }
