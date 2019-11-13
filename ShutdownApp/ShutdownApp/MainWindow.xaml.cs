@@ -140,12 +140,12 @@ namespace ShutdownApp
             SetProfile((Profile)profile);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonSaveProfileClick(object sender, RoutedEventArgs e)
         {
             CreateNewProfile(textSetName.Text);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonDeleteProfileClick(object sender, RoutedEventArgs e)
         {
             var profile = profilesBox.SelectedItem;
             DeleteProfile((Profile)profile);
@@ -154,6 +154,11 @@ namespace ShutdownApp
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _saveComponent.SaveProfiles(_profiles);
+        }
+
+        private void buttonDeleteProfile_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
