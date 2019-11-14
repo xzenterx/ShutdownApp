@@ -118,6 +118,8 @@ namespace ShutdownApp
             }
         }
 
+
+
         private void SetProfile(Profile profile)
         {
             if (profile != null)
@@ -156,9 +158,5 @@ namespace ShutdownApp
             _saveComponent.SaveProfiles(_profiles);
         }
 
-        private void buttonDeleteProfile_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
