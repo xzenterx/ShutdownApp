@@ -39,12 +39,21 @@ namespace ShutdownApp
             
             _dispatcherTimer.Tick += new EventHandler(Timer_Tick);
 
-            _profiles = new List<Profile>
+            _profiles = new List<Profile>();
+
+            if (_saveComponent.LoadProfiles() != null)
             {
-                new Profile("Base", new TimeSpan(1,0,0)),
-                new Profile("Serial", new TimeSpan(1,10,0)),
-                new Profile("Film", new TimeSpan(2,30,0))
-            };
+                _profiles = _saveComponent.LoadProfiles();
+            }
+
+            if (_profiles != null)
+            {
+                foreach (var profile in _profiles)
+                {
+                    profilesBox.Items.Add(profile);
+                }
+            }
+
         }
 
         private void ButtonSet_Click(object sender, RoutedEventArgs e)
@@ -117,8 +126,6 @@ namespace ShutdownApp
                 profilesBox.Items.Add(_profiles.Last());
             }
         }
-
-
 
         private void SetProfile(Profile profile)
         {

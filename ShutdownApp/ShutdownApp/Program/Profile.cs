@@ -8,10 +8,10 @@ namespace ShutdownApp.Program
     [DataContract]
     public class Profile
     {   
-        [DataMember]
+        [DataMember(Name = "name")]
         public string Name { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "time")]
         public TimeSpan Time { get; set; }
 
         public Profile(string name, TimeSpan time)

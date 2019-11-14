@@ -19,15 +19,18 @@ namespace ShutdownApp.Program
 
         public List<Profile> LoadProfiles()
         {
-            List<Profile> profiles = new List<Profile>();
-
+            
             using (FileStream file = new FileStream("profiles.json", FileMode.OpenOrCreate))
             {
                 var jsonSerializer = new DataContractJsonSerializer(typeof(List<Profile>));
-                profiles = jsonSerializer.ReadObject(file) as List<Profile>;
+                if (!(file.Length == 0))
+                {
+                    var profiles = jsonSerializer.ReadObject(file) as List<Profile>;
+                    return profiles;
+                }
+                return null;
             }
 
-            return profiles;
         }
 
     }
