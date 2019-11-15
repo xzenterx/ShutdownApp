@@ -10,7 +10,7 @@ namespace ShutdownApp.Program
     {
         public void SaveProfiles(List<Profile> profiles)
         {
-            using(FileStream file = new FileStream("profiles.json", FileMode.OpenOrCreate))
+            using(FileStream file = new FileStream("profiles.json", FileMode.Create))
             {
                 var jsonSerializer = new DataContractJsonSerializer(typeof(List<Profile>));
                 jsonSerializer.WriteObject(file, profiles);

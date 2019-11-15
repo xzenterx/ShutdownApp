@@ -13,11 +13,9 @@ namespace ShutdownApp
 
         private ShutdownProcess _shutdownProcess = new ShutdownProcess();
         private InitialCheck _initialCheck = new InitialCheck();
-        private DispatcherTimer _dispatcherTimer = new DispatcherTimer();
+        private Timer _timer = new Timer();
 
         private TimeSpan _time;
-        private TimeSpan _shutdownTime;
-        private TimeSpan _remainingTime;
 
         private List<Profile> _profiles;
 
@@ -33,11 +31,11 @@ namespace ShutdownApp
         {
             if (_initialCheck.CheckRunShutdown())
             {
-                SetTimer();
+                _timer.SetTimer(_initialCheck);
                 buttonCancel.IsEnabled = true;
             }
-            
-            _dispatcherTimer.Tick += new EventHandler(Timer_Tick);
+
+            _timer.InitializeTimer(Timer_Tick);
 
             _profiles = new List<Profile>();
 
@@ -70,7 +68,7 @@ namespace ShutdownApp
             {
                 _time = new TimeSpan(hours, minutes, 0);
                 _shutdownProcess.SetShutdownTaskSheduler(_time);
-                SetTimer();
+                _timer.SetTimer(_initialCheck);
 
                 buttonCancel.IsEnabled = true;
             }
@@ -79,33 +77,14 @@ namespace ShutdownApp
         private void ButtonCancel_Click(object sender, RoutedEventArgs e)
         {
             _shutdownProcess.CancelShutdownTaskSheduler();
-            CancelTimer();
+            _timer.CancelTimer(timer);
 
             buttonCancel.IsEnabled = false;
         }
 
-        private void SetTimer()
-        {
-            _initialCheck.GetNextRunTime();
-            _shutdownTime = _initialCheck.Time;
-
-            _dispatcherTimer.Interval = new TimeSpan();
-            _dispatcherTimer.Start();
-        }
-
-        private void CancelTimer()
-        {
-            _dispatcherTimer.Stop();
-
-            timer.Content = string.Empty;
-        }
-
         private void Timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan timeNow = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-
-            _remainingTime = _shutdownTime - timeNow;
-            timer.Content = $"{_remainingTime.Hours}:{_remainingTime.Minutes}:{_remainingTime.Seconds}";
+            _timer.TimerTick(timer);
         }
 
         private void CreateNewProfile(string name)
