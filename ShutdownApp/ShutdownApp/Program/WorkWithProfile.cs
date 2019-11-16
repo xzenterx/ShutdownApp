@@ -18,15 +18,19 @@ namespace ShutdownApp.Program
 
             if (saveComponent.LoadProfiles() != null)
             {
-                _profiles = saveComponent.LoadProfiles();
+                _profiles.AddRange(saveComponent.LoadProfiles());
             }
 
             if (_profiles != null)
-
+            {
                 foreach (var profile in _profiles)
                 {
                     profilesBox.Items.Add(profile);
                 }
+            }
+
+            profilesBox.SelectedItem = profilesBox.Items[0];
+
         }
 
         public void CreateNewProfile(string name, TextBox textSetHours, TextBox textSetMinutes, TimeSpan time, ComboBox profilesBox)

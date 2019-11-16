@@ -70,9 +70,18 @@ namespace ShutdownApp
         }
 
         private void ProfilesBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var profile = profilesBox.SelectedItem as Profile;
-            _workWithProfile.SetProfile(profile, textSetHours, textSetMinutes, _time);
+        {   
+            if (profilesBox.SelectedItem == profilesBox.Items[0])
+            {
+                buttonDeleteProfile.IsEnabled = false;
+            }
+            else
+            {
+                buttonDeleteProfile.IsEnabled = true;
+
+                var profile = profilesBox.SelectedItem as Profile;
+                _workWithProfile.SetProfile(profile, textSetHours, textSetMinutes, _time);
+            }
         }
 
         private void ButtonSaveProfileClick(object sender, RoutedEventArgs e)
