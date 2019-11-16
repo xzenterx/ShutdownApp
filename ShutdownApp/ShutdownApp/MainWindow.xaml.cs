@@ -1,10 +1,7 @@
 ﻿using System.Windows;
-using System.Windows.Threading;
 using ShutdownApp.Program;
 using System;
-using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Linq;
 
 namespace ShutdownApp
 {
@@ -14,12 +11,10 @@ namespace ShutdownApp
         private ShutdownProcess _shutdownProcess = new ShutdownProcess();
         private InitialCheck _initialCheck = new InitialCheck();
         private Timer _timer = new Timer();
+        private SaveComponent _saveComponent = new SaveComponent();
+        private WorkWithProfile _workWithProfile = new WorkWithProfile();
 
         private TimeSpan _time;
-
-        private List<Profile> _profiles;
-
-        private SaveComponent _saveComponent = new SaveComponent();
 
 
         public MainWindow()
@@ -27,7 +22,7 @@ namespace ShutdownApp
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void WindowLoaded(object sender, RoutedEventArgs e)
         {
             if (_initialCheck.CheckRunShutdown())
             {
@@ -35,30 +30,17 @@ namespace ShutdownApp
                 buttonCancel.IsEnabled = true;
             }
 
-            _timer.InitializeTimer(Timer_Tick);
+            _timer.InitializeTimer(TimerTick);
 
-            _profiles = new List<Profile>();
-
-            if (_saveComponent.LoadProfiles() != null)
-            {
-                _profiles = _saveComponent.LoadProfiles();
-            }
-
-            if (_profiles != null)
-            {
-                foreach (var profile in _profiles)
-                {
-                    profilesBox.Items.Add(profile);
-                }
-            }
+            _workWithProfile.InitializeProfiles(_saveComponent, profilesBox);
 
         }
 
-        private void ButtonSet_Click(object sender, RoutedEventArgs e)
+        private void ButtonSetClick(object sender, RoutedEventArgs e)
         {   
             if (!int.TryParse(textSetHours.Text, out int hours))
             {
-                MessageBox.Show("Please, enter minutes.");
+                MessageBox.Show("Please, enter hours.");
             }
             else if (!int.TryParse(textSetMinutes.Text, out int minutes))
             {
@@ -74,7 +56,7 @@ namespace ShutdownApp
             }
         }
 
-        private void ButtonCancel_Click(object sender, RoutedEventArgs e)
+        private void ButtonCancelClick(object sender, RoutedEventArgs e)
         {
             _shutdownProcess.CancelShutdownTaskSheduler();
             _timer.CancelTimer(timer);
@@ -82,66 +64,31 @@ namespace ShutdownApp
             buttonCancel.IsEnabled = false;
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        private void TimerTick(object sender, EventArgs e)
         {
-            _timer.TimerTick(timer);
+            _timer.Tick(timer);
         }
 
-        private void CreateNewProfile(string name)
+        private void ProfilesBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!int.TryParse(textSetHours.Text, out int hours))
-            {
-                MessageBox.Show("Please, enter minutes.");
-            }
-            else if (!int.TryParse(textSetMinutes.Text, out int minutes))
-            {
-                MessageBox.Show("Please, enter minutes.");
-            }
-            else
-            {
-                _time = new TimeSpan(hours, minutes, 0);
-                var profile = new Profile(name, _time);
-                _profiles.Add(profile);
-                profilesBox.Items.Add(_profiles.Last());
-            }
-        }
-
-        private void SetProfile(Profile profile)
-        {
-            if (profile != null)
-            {
-                _time = profile.Time;
-                textSetHours.Text = profile.Time.Hours.ToString();
-                textSetMinutes.Text = profile.Time.Minutes.ToString();
-            }
-        }
-
-        private void DeleteProfile(Profile profile)
-        {
-            profilesBox.Items.Remove(profile);
-            profilesBox.SelectedItem = profilesBox.Items[0];
-        }
-
-        private void ProfilesBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var profile = profilesBox.SelectedItem;
-            SetProfile((Profile)profile);
+            var profile = profilesBox.SelectedItem as Profile;
+            _workWithProfile.SetProfile(profile, textSetHours, textSetMinutes, _time);
         }
 
         private void ButtonSaveProfileClick(object sender, RoutedEventArgs e)
         {
-            CreateNewProfile(textSetName.Text);
+            _workWithProfile.CreateNewProfile(textSetName.Text, textSetHours, textSetMinutes, _time, profilesBox);
         }
 
         private void ButtonDeleteProfileClick(object sender, RoutedEventArgs e)
         {
-            var profile = profilesBox.SelectedItem;
-            DeleteProfile((Profile)profile);
+            var profile = profilesBox.SelectedItem as Profile;
+            _workWithProfile.DeleteProfile(profile, profilesBox);
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void WindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _saveComponent.SaveProfiles(_profiles);
+            _saveComponent.SaveProfiles(_workWithProfile._profiles);
         }
 
     }

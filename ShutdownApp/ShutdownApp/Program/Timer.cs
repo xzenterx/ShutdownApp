@@ -35,7 +35,7 @@ namespace ShutdownApp.Program
             timer.Content = string.Empty;
         }
 
-        public void TimerTick(Label timer)
+        public void Tick(Label timer)
         {
             TimeSpan timeNow = new TimeSpan(DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
 
