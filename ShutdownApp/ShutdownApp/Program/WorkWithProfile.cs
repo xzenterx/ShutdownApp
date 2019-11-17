@@ -21,6 +21,11 @@ namespace ShutdownApp.Program
                 _profiles.AddRange(saveComponent.LoadProfiles());
             }
 
+            if (!_profiles.Exists(p => p.Name == "Base"))
+            {
+                _profiles.Insert(0, new Profile("Base", new TimeSpan(1, 0, 0)));
+            }
+
             if (_profiles != null)
             {
                 foreach (var profile in _profiles)
