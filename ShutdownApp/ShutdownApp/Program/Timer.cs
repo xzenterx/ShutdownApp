@@ -42,5 +42,14 @@ namespace ShutdownApp.Program
             _remainingTime = _shutdownTime - timeNow;
             timer.Content = $"{_remainingTime.Hours}:{_remainingTime.Minutes}:{_remainingTime.Seconds}";
         }
+
+        public void SetInitTimer(InitialCheck initialCheck, Button buttonCancel)
+        {
+            if (initialCheck.CheckRunShutdown())
+            {
+                SetTimer(initialCheck);
+                buttonCancel.IsEnabled = true;
+            }
+        }
     }
 }

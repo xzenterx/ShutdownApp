@@ -24,16 +24,10 @@ namespace ShutdownApp
 
         private void WindowLoaded(object sender, RoutedEventArgs e)
         {
-            if (_initialCheck.CheckRunShutdown())
-            {
-                _timer.SetTimer(_initialCheck);
-                buttonCancel.IsEnabled = true;
-            }
-
             _timer.InitializeTimer(TimerTick);
-
+            _timer.SetInitTimer(_initialCheck, buttonCancel);
+            
             _workWithProfile.InitializeProfiles(_saveComponent, profilesBox);
-
         }
 
         private void ButtonSetClick(object sender, RoutedEventArgs e)
