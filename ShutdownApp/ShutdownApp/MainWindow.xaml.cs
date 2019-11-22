@@ -32,11 +32,11 @@ namespace ShutdownApp
 
         private void ButtonSetClick(object sender, RoutedEventArgs e)
         {   
-            if (!int.TryParse(textSetHours.Text, out int hours))
+            if (!int.TryParse(textSetHours.Text, out int hours) && hours >= 0)
             {
                 MessageBox.Show("Please, enter hours.");
             }
-            else if (!int.TryParse(textSetMinutes.Text, out int minutes))
+            else if (!int.TryParse(textSetMinutes.Text, out int minutes) && minutes > 0)
             {
                 MessageBox.Show("Please, enter minutes.");
             }
