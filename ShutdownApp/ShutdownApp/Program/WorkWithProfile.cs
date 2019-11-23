@@ -40,11 +40,11 @@ namespace ShutdownApp.Program
 
         public void CreateNewProfile(string name, TextBox textSetHours, TextBox textSetMinutes, TimeSpan time, ComboBox profilesBox)
         {
-            if (!int.TryParse(textSetHours.Text, out int hours))
+            if (!int.TryParse(textSetHours.Text, out int hours) && hours >= 0)
             {
                 MessageBox.Show("Please, enter hours.");
             }
-            else if (!int.TryParse(textSetMinutes.Text, out int minutes))
+            else if (!int.TryParse(textSetMinutes.Text, out int minutes) && minutes > 0)
             {
                 MessageBox.Show("Please, enter minutes.");
             }
@@ -54,6 +54,7 @@ namespace ShutdownApp.Program
                 var profile = new Profile(name, time);
                 _profiles.Add(profile);
                 profilesBox.Items.Add(_profiles.Last());
+                profilesBox.SelectedItem = profilesBox.Items[profilesBox.Items.Count-1];
             }
         }
 
